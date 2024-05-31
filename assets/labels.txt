@@ -1,0 +1,6 @@
+0 calculus
+1 caries
+2 gingivitis
+3 hypodontia
+4 ulcer
+5 discoloration
