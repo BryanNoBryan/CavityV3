@@ -28,6 +28,9 @@
 
 import 'dart:io';
 
+import 'package:cavity3/providers/database.dart';
+import 'package:cavity3/providers/model_classes/MyRecord.dart';
+
 import '../MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
@@ -220,6 +223,11 @@ class _AIViewState extends State<AIView> {
         path: _selectedImageFile!,
         disease: _diseaseLabel,
         accuracy: _accuracy,
+        onaccept: () async {
+          MyRecord r =
+              MyRecord(timestamp: DateTime.now(), disease: _diseaseLabel);
+          await Database().addRecord(r);
+        },
       ),
     );
     setState(() {});

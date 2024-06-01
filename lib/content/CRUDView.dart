@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import '../providers/model_classes/Record.dart';
+import '../providers/model_classes/MyRecord.dart';
 import '../widget/RecordWidget.dart';
 
 import '../MyColors.dart';
@@ -23,7 +23,7 @@ class CRUDView extends StatefulWidget {
 }
 
 class _CRUDViewState extends State<CRUDView> {
-  List<Record>? records;
+  List<MyRecord>? records;
 
   @override
   void initState() {

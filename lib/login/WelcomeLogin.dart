@@ -86,7 +86,7 @@ class _AuthGateState extends State<AuthGate> {
                 padding: const EdgeInsets.all(10),
                 child: AspectRatio(
                   aspectRatio: 1.647,
-                  child: Image.asset('images/icon.png'),
+                  child: Image.asset('assets/images/icon.png'),
                 ),
               );
             },

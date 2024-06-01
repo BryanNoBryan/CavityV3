@@ -1,15 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Disease.dart';
+part of 'MyRecord.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Disease _$DiseaseFromJson(Map<String, dynamic> json) => Disease(
+MyRecord _$MyRecordFromJson(Map<String, dynamic> json) => MyRecord(
+      timestamp: MyRecord._fromJson((json['timestamp'] as num).toInt()),
       disease: json['disease'] as String,
     );
 
-Map<String, dynamic> _$DiseaseToJson(Disease instance) => <String, dynamic>{
+Map<String, dynamic> _$MyRecordToJson(MyRecord instance) => <String, dynamic>{
+      'timestamp': MyRecord._toJson(instance.timestamp),
       'disease': instance.disease,
     };

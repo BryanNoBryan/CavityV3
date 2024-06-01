@@ -1,6 +1,8 @@
 import 'dart:io';
 
-import '../providers/model_classes/Record.dart';
+import 'package:cavity3/navigation/MyNavigator.dart';
+
+import '../providers/model_classes/MyRecord.dart';
 import '../providers/database.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +13,13 @@ class ImageDialog extends StatefulWidget {
       {required this.path,
       required this.disease,
       required this.accuracy,
+      required this.onaccept,
       super.key});
 
   final File path;
   final String disease;
   final double accuracy;
+  final Function() onaccept;
 
   @override
   State<ImageDialog> createState() => _ImageDialogState();
@@ -100,32 +104,13 @@ class _ImageDialogState extends State<ImageDialog> {
                   SimpleBtn1(
                       text: "Accept",
                       onPressed: () async {
-                        // Record c = Record(
-                        //     code: code.text,
-                        //     timestamp: name.text,
-                        //     disease: desc.text,
-                        //     subject: subject.text,
-                        //     timeDesc: timeDesc.text,
-                        //     level: level.text,
-                        //     prereq: prereq.text,
-                        //     tags: tags.text.split(','));
-
-                        // if (widget.isCreate) {
-                        //   await Database().addCourse(c);
-                        //   Database().courses!.add(c);
-                        // } else {
-                        //   await Database().editCourse(c);
-                        //   await Database()
-                        //       .updateList(c.code ?? "ERROR NOTHING CODE");
-                        // }
-                        // Database().printList();
-                        // print('changed a course');
-                        // Navigator.of(context).pop();
+                        await widget.onaccept();
+                        MyNavigator.router.pop();
                       }),
                   SimpleBtn1(
                     text: "Reject",
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      MyNavigator.router.pop();
                     },
                     invertedColors: true,
                   ),

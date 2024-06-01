@@ -1,5 +1,5 @@
 import '../MyColors.dart';
-import '../providers/model_classes/Record.dart';
+import '../providers/model_classes/MyRecord.dart';
 import 'package:flutter/material.dart';
 
 class CourseWidget extends StatefulWidget {
@@ -11,7 +11,7 @@ class CourseWidget extends StatefulWidget {
       required this.hasAccount,
       super.key});
 
-  final Record course;
+  final MyRecord course;
   final Function()? onEdit;
   final Function()? onFavorite;
   final bool admin;

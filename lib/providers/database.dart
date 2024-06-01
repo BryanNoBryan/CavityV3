@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
 
-import 'model_classes/Record.dart';
+import 'model_classes/MyRecord.dart';
 import 'user_state.dart';
 
 class Database {
@@ -15,26 +15,74 @@ class Database {
   Database._init();
 
   FirebaseDatabase database = FirebaseDatabase.instance;
-  List<Record>? records;
+  List<MyRecord>? records;
 
-  List<Record>? getCourses() {
-    print('course got');
-    return [];
-  }
-
-  Future<void> addRecord(Record record) async {
+  Future<List<MyRecord>?> initCourses() async {
     String uid = UserState.user!.uid;
     DatabaseReference ref = database.ref('records/${uid}');
-    int time = DateTime.now().millisecondsSinceEpoch;
-    ref.set({
-      time.toString(): {
-        'timestamp': DateTime.now().millisecondsSinceEpoch,
-        'disease': 1,
-      }
+    final snapshot = await ref.get();
+
+    //initialize
+    records = [];
+    if (snapshot.exists) {
+      Map<String, dynamic> json = jsonDecode(snapshot.value as String);
+      json.keys.toList().forEach((elem) {
+        MyRecord record = MyRecord.fromJson(json[elem]);
+        record.key = elem;
+
+        //TODO DO SORTING TO ADD IN
+        records!.add(record);
+      });
+    } else {
+      //no
+    }
+
+    //TODO DO SORTING TO ADD IN
+
+    //listen to changes
+    ref.onChildAdded.listen((event) {
+      // A new comment has been added, so add it to the displayed list.
+    });
+    ref.onChildChanged.listen((event) {
+      // A comment has changed; use the key to determine if we are displaying this
+      // comment and if so displayed the changed comment.
+    });
+    ref.onChildRemoved.listen((event) {
+      // A comment has been removed; use the key to determine if we are displaying
+      // this comment and if so remove it.
     });
   }
 
-  Future<void> editCourse(Record course) async {
+  void addInOrder() {}
+
+  // List<MyRecord>? getCourses() {
+  //   String uid = UserState.user!.uid;
+  //   DatabaseReference ref = database.ref('records/${uid}');
+
+  //   ref.onValue.listen((DatabaseEvent event) {
+  //     final data = event.snapshot.value;
+  //     event.type
+  //   });
+  // }
+
+  Future<String?> addRecord(MyRecord record) async {
+    print('trying to add record');
+    String uid = UserState.user!.uid;
+    DatabaseReference ref = database.ref('records/${uid}');
+    DatabaseReference push = ref.push();
+    String? key = push.key;
+
+    push.set(record.toJson());
+    print(record.toJson().toString());
+    print('added record key = ${key}');
+
+    //ref to be able to delete
+    return key;
+
+    //then add somewhere for local optimization
+  }
+
+  Future<void> editCourse(MyRecord course) async {
     // FirebaseFirestore.instance
     //     .collection('Courses')
     //     .doc(course.code)
@@ -52,7 +100,7 @@ class Database {
     // snapshot.children.
   }
 
-  Future<void> deleteCourse(Record course) async {
+  Future<void> deleteCourse(MyRecord course) async {
     // await FirebaseFirestore.instance
     //     .collection('Courses')
     //     .doc(course.code)
@@ -64,7 +112,7 @@ class Database {
     // print('finished deleting');
   }
 
-  Future<List<Record>?> updateList(String code) async {
+  Future<List<MyRecord>?> updateList(String code) async {
     // var doc =
     //     await FirebaseFirestore.instance.collection('Courses')
     // .doc(code).get();
