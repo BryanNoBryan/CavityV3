@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   desktop_webview_auth
   file_selector_linux
+  printing
   tflite_flutter
   tflite_flutter_helper
 )

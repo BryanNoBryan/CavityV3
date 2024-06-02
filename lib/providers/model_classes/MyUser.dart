@@ -1,17 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'UserInfo.dart';
-
 part 'MyUser.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class MyUser {
-  final String uid;
-  final UserInfo info;
+  final String? firstName;
+  final String? lastName;
+  final DateTime? DOB; //date of birth
 
   MyUser({
-    required this.uid,
-    required this.info,
+    required this.firstName,
+    required this.lastName,
+    required this.DOB,
   });
 
   factory MyUser.fromJson(Map<String, dynamic> json) => _$MyUserFromJson(json);

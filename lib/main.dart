@@ -71,10 +71,11 @@ void main() async {
 
   UserState();
   AppState();
+  //init states before databases
   UserDatabase();
-  //initialize records after login confirmed
-
-  //calculate after initializing providers
-  MyNavigator.calculateNavigation();
+  //initialize records and user database records after login confirmed
   runApp(const MyApp());
+
+  // //calculate after initializing
+  //   MyNavigator.calculateNavigation();
 }

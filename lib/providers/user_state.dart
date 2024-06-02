@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:cavity3/navigation/MyNavigator.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+import 'UserDatabase.dart';
 import 'database.dart';
 
 class UserState extends ChangeNotifier {
@@ -43,6 +45,8 @@ class UserState extends ChangeNotifier {
           _verified = true;
           log('verified');
           await Database().initRecords();
+          await UserDatabase().initUser();
+          MyNavigator.calculateNavigation();
         } else {
           _verified = false;
         }

@@ -5,3 +5,9 @@ firebase emulators:export ./emulators_data
 firebase emulators:start --import ./emulators_data
 
 firebase emulators:start --import ./emulators_data --export-on-exit
+
+
+
+build runner:
+
+dart run build_runner build --delete-conflicting-outputs

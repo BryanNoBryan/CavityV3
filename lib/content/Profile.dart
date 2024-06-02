@@ -1,3 +1,6 @@
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:intl/intl.dart';
+
 import '../MyColors.dart';
 import '../navigation/MyNavigator.dart';
 import '../providers/UserDatabase.dart';
@@ -15,116 +18,165 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  TextEditingController OSIS = TextEditingController();
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
-  TextEditingController UID = TextEditingController();
-  TextEditingController officialClass = TextEditingController();
-  MyUser? user;
+  String DOBText = '';
+  DateTime? DOB;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    user = UserDatabase().getUser();
+    MyUser? user = UserDatabase().getUser();
 
-    // OSIS.text = user?.OSIS ?? '';
-    // firstName.text = user?.firstName ?? '';
-    // lastName.text = user?.lastName ?? '';
-    // UID.text = user?.UID ?? '';
-    // officialClass.text = user?.officialClass ?? '';
+    firstName.text = user?.firstName ?? '';
+    lastName.text = user?.lastName ?? '';
+    DOB = user?.DOB;
+    DOBText = DOB != null ? DateFormat.yMd().format(DOB!) : 'Choose DOB';
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-            ),
-            onPressed: () {
-              UserState().logout();
-              MyNavigator.shell.goBranch(0);
-              print('outout');
-            },
-            child: Text(
-              'Logout',
-              style: TextStyle(fontSize: 32),
-            )),
-        Expanded(
-          child: Center(
-            child: ListView(
-              children: [
-                InputHelper(
-                  name: 'OSIS',
-                  controller: OSIS,
-                ),
-                InputHelper(
-                  name: 'firstName',
-                  controller: firstName,
-                ),
-                InputHelper(
-                  name: 'lastName',
-                  controller: lastName,
-                ),
-                InputHelper(
-                  name: 'UID',
-                  controller: UID,
-                ),
-                InputHelper(
-                  name: 'officialClass',
-                  controller: officialClass,
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      // MyUser newUser = MyUser(
-                      //   OSIS: OSIS.text,
-                      //   firstName: firstName.text,
-                      //   lastName: lastName.text,
-                      //   UID: UID.text,
-                      //   officialClass: officialClass.text,
-                      //   favorites: user?.favorites,
-                      // );
-                      // UserDatabase().updateUser(newUser);
-                      // UserDatabase().retrieveUser();
-                    },
-                    child: Text(
-                      'Update Profile',
-                      style: TextStyle(fontSize: 32),
-                    )),
-              ],
-            ),
-          ),
+        appBar: AppBar(
+          title: const Text("Profile"),
+          centerTitle: true,
+          backgroundColor: MyColors.green,
         ),
-      ],
-    ));
+        body: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: ListView(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: Text(
+                        'Information',
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    InputHelper(
+                      name: 'firstName',
+                      controller: firstName,
+                    ),
+                    InputHelper(
+                      name: 'lastName',
+                      controller: lastName,
+                    ),
+
+                    //DT
+                    GestureDetector(
+                        behavior: HitTestBehavior.deferToChild,
+                        onTap: () {
+                          BottomPicker.date(
+                            pickerTitle: Text(
+                              'Set your Birthday',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            initialDateTime: DOB ?? DateTime.now(),
+                            maxDateTime: DateTime.now(),
+                            minDateTime: DateTime.now()
+                                .subtract(const Duration(days: 365 * 200)),
+                            pickerTextStyle: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                            onSubmit: (index) {
+                              DOB = index;
+                              DOBText = DateFormat.yMd().format(index);
+                              setState(() {});
+                            },
+                          ).show(context);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 30),
+                          decoration: BoxDecoration(
+                              color: MyColors.lightBlue,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.blueAccent)),
+                          child: Text(
+                            DOBText,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        )),
+
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        onPressed: () {
+                          MyUser myUser = MyUser(
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              DOB: DOB);
+                          UserDatabase().updateUser(myUser);
+                        },
+                        child: Text(
+                          'Update Profile',
+                          style: TextStyle(fontSize: 32),
+                        )),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        onPressed: () {
+                          UserState().logout();
+                          MyNavigator.shell.goBranch(0);
+                          print('outout');
+                        },
+                        child: Text(
+                          'Logout',
+                          style: TextStyle(fontSize: 32),
+                        )),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }
 
 class InputHelper extends StatelessWidget {
-  const InputHelper({required this.name, required this.controller, super.key});
+  const InputHelper(
+      {required this.name,
+      required this.controller,
+      this.editable = true,
+      super.key});
   final String name;
   final TextEditingController controller;
+  final bool editable;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(0),
+      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: MyColors.lightBlue,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.blueAccent)),
       child: TextField(
+        enabled: editable,
+        readOnly: !editable,
         controller: controller,
         decoration: InputDecoration(
-            label: Text(
-              name,
-              style: TextStyle(fontSize: 16),
-            ),
-            filled: true,
-            fillColor: MyColors.lightBlue),
+          label: Text(
+            name,
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
       ),
     );
   }
