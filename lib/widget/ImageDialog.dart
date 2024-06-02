@@ -88,7 +88,7 @@ class _ImageDialogState extends State<ImageDialog> {
               ),
               Center(
                 child: Text(
-                  "Disease ${widget.disease} with accuracy ${widget.accuracy}",
+                  "Disease ${widget.disease} with accuracy ${double.parse(widget.accuracy.round().toStringAsFixed(4)) * 100}%",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,

@@ -101,11 +101,11 @@ class _AIViewState extends State<AIView> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Spacer(),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 30),
-            //   child: _buildTitle(),
-            // ),
+            const Spacer(flex: 1),
+            Text(
+              'Diagnosis',
+              style: TextStyle(fontSize: 30),
+            ),
             const SizedBox(height: 20),
             _buildPhotolView(),
             const SizedBox(height: 10),
@@ -114,12 +114,14 @@ class _AIViewState extends State<AIView> {
             _buildPickPhotoButton(
               title: 'Take a photo',
               source: ImageSource.camera,
+              type: 1,
             ),
             _buildPickPhotoButton(
               title: 'Pick from gallery',
               source: ImageSource.gallery,
+              type: 2,
             ),
-            const Spacer(),
+            const Spacer(flex: 5),
           ],
         ),
       ),
@@ -154,21 +156,36 @@ class _AIViewState extends State<AIView> {
   Widget _buildPickPhotoButton({
     required ImageSource source,
     required String title,
+    required int type,
   }) {
     return TextButton(
       onPressed: () => _onPickPhoto(source),
       child: Container(
         width: 300,
         height: 50,
-        color: MyColors.yellow,
+        padding: EdgeInsets.all(10),
+        color: MyColors.grey,
         child: Center(
-            child: Text(title,
-                style: const TextStyle(
-                  fontFamily: kButtonFont,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
-                  color: kColorLightYellow,
-                ))),
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            type == 1 ? Icon(Icons.camera_alt) : Icon(Icons.image),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(title,
+                      style: const TextStyle(
+                        fontFamily: kButtonFont,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w600,
+                        color: kColorLightYellow,
+                      )),
+                ],
+              ),
+            ),
+          ],
+        )),
       ),
     );
   }

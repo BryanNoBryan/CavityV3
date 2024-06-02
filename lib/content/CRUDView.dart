@@ -36,34 +36,42 @@ class _CRUDViewState extends State<CRUDView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton.large(
-      //     onPressed: () async {
-      //       await showDialog<String>(
-      //         context: context,
-      //         builder: (BuildContext context) =>
-      //             CourseChangeDialog(isCreate: true),
-      //       );
-      //       courses = Database().courses;
-      //       print('here here $courses');
-      //       setState(() {});
-      //     },
-      //     child: Icon(
-      //       Icons.add,
-      //       color: Colors.white,
-      //     )),
       appBar: AppBar(
-        title: Text("Edit History"),
+        title: const Text("Edit History"),
         centerTitle: true,
         backgroundColor: MyColors.green,
       ),
       body: Center(
         child: Column(
           children: [
-            RecordWidget(
-              time: DateTime.now(),
-              disease: 'you are',
-              onswipe: () {},
+            Container(
+              margin: const EdgeInsets.all(30),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(Icons.keyboard_arrow_left),
+                  Text(
+                    'Swipe Horizontally to Delete!',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Icon(Icons.keyboard_arrow_right),
+                ],
+              ),
             ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: Database().records?.length ?? 0,
+                itemBuilder: (context, idx) {
+                  MyRecord record = Database().records![idx];
+                  return RecordWidget(
+                      time: record.timestamp,
+                      disease: record.disease,
+                      onswipe: () async {
+                        await Database().deleteRecord(record);
+                      });
+                },
+              ),
+            )
           ],
         ),
       ),

@@ -72,7 +72,7 @@ void main() async {
   UserState();
   AppState();
   UserDatabase();
-  await Database().retrieveCourses();
+  //initialize records after login confirmed
 
   //calculate after initializing providers
   MyNavigator.calculateNavigation();

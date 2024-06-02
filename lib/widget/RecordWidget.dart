@@ -21,10 +21,8 @@ class RecordWidget extends StatelessWidget {
     return Dismissible(
       key: UniqueKey(),
       direction: DismissDirection.horizontal,
-      onDismissed: (direction) {
-        //remove from DB
-
-        //DOODODOODODODODDOD
+      onDismissed: (direction) async {
+        await onswipe();
       },
       child: Container(
         height: 120,
@@ -39,7 +37,7 @@ class RecordWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              DateFormat('MM-dd-yyyy').format(time),
+              DateFormat.yMd().add_jm().format(time),
               style: TextStyle(fontSize: 26),
             ),
             Text(

@@ -6,6 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+import 'database.dart';
+
 class UserState extends ChangeNotifier {
   static final UserState _userState = UserState._init();
 
@@ -32,14 +34,15 @@ class UserState extends ChangeNotifier {
     _verified =
         (_loggedIn && FirebaseAuth.instance.currentUser!.emailVerified == true);
     log('info initialized in init');
-    FirebaseAuth.instance.userChanges().listen((user) {
-      log('PROCCED INSIDE');
+    FirebaseAuth.instance.userChanges().listen((user) async {
       if (user != null) {
         _user = user;
         _loggedIn = true;
+
         if (user.emailVerified) {
           _verified = true;
           log('verified');
+          await Database().initRecords();
         } else {
           _verified = false;
         }
