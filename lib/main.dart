@@ -29,6 +29,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
+import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -49,6 +50,9 @@ void main() async {
   );
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
+    GoogleProvider(
+        clientId:
+            '898422214960-l80mcbp1dn1f20h6sogjj7mdgshbe8cs.apps.googleusercontent.com'),
   ]);
 
   MyNavigator();
