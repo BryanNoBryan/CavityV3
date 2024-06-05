@@ -18,6 +18,7 @@ class Database {
   List<MyRecord>? records;
 
   Future<void> initRecords() async {
+    log('called init records');
     records = [];
     String uid = UserState.user!.uid;
     DatabaseReference ref = database.ref('records/${uid}');
@@ -44,11 +45,19 @@ class Database {
 
     //listen to changes
     ref.onChildAdded.listen((event) {
+      log('on child database added');
       String? key = event.snapshot.key;
       final data = Map<String, dynamic>.from(event.snapshot.value as Map);
       final record = MyRecord.fromJson(data);
       record.key = key;
 
+      //check if it exists, b/c it will trigger twice with both child nodes
+      for (int i = 0; i < records!.length; i++) {
+        if (records![i].key! == key) {
+          records![i] = record;
+          return;
+        }
+      }
       records!.insert(0, record);
     });
 
@@ -75,6 +84,7 @@ class Database {
   }
 
   Future<String?> addRecord(MyRecord record) async {
+    log('add record');
     print('trying to add record');
     String uid = UserState.user!.uid;
     DatabaseReference ref = database.ref('records/${uid}');
