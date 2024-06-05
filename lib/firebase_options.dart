@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDxr22wChE-kcYN8bUUzlFXX1EMxNY-hV4',
-    appId: '1:898422214960:android:ed69f5e9d03b08cbcc78f5',
+    appId: '1:898422214960:android:bf46b8d639f46d7fcc78f5',
     messagingSenderId: '898422214960',
     projectId: 'cavity-2df8d',
     databaseURL: 'https://cavity-2df8d-default-rtdb.firebaseio.com',

@@ -49,8 +49,6 @@ class UserDatabase {
       user = myUser;
       print('new user' + user!.toJson().toString());
     });
-
-    print(user!.toJson().toString());
   }
 
   Future<void> updateUser(MyUser myUser) async {

@@ -6,7 +6,9 @@ firebase emulators:start --import ./emulators_data
 
 firebase emulators:start --import ./emulators_data --export-on-exit
 
+debug key:
 
+keytool -list -v -alias androiddebugkey -keystore C:\Users\Bryan\.android\debug.keystore
 
 build runner:
 

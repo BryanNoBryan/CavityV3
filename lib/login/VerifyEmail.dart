@@ -27,13 +27,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      UserState user = Provider.of<UserState>(context, listen: false);
-      if (user.verified) {
-        timer?.cancel();
-        MyNavigator.calculateNavigation();
-      } else {
-        sendVerificationEmail();
-      }
+      sendVerificationEmail();
 
       timer = Timer.periodic(const Duration(seconds: 3), (_) async {
         await FirebaseAuth.instance.currentUser!.reload();
@@ -55,7 +49,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
   void checkVerification() {
     if (isEmailVerified) {
       timer?.cancel();
-      log('verification check');
       MyNavigator.calculateNavigation();
     }
   }

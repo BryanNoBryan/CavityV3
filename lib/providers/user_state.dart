@@ -46,7 +46,7 @@ class UserState extends ChangeNotifier {
           log('verified');
           await Database().initRecords();
           await UserDatabase().initUser();
-          MyNavigator.calculateNavigation();
+          await MyNavigator.calculateNavigation();
         } else {
           _verified = false;
         }
@@ -55,16 +55,6 @@ class UserState extends ChangeNotifier {
       }
       notifyListeners();
     });
-  }
-
-  //maybe it doesn't listen to verify changes -> add a method
-
-  Future<Map<String, dynamic>?> get currentUserClaims async {
-    log('got claims');
-    if (_user == null) return null;
-    final idTokenResult = await _user!.getIdTokenResult(true);
-
-    return idTokenResult.claims;
   }
 
   Future<void> logout() async {

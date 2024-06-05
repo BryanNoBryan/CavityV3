@@ -2,6 +2,8 @@
 
 import 'dart:developer';
 
+import 'package:cavity3/login/LoginPage.dart';
+
 import '../content/AIView.dart';
 
 import '../content/CRUDView.dart';
@@ -9,7 +11,6 @@ import '../content/AIView.dart';
 import '../content/PDFView.dart';
 import '../content/Profile.dart';
 import '../login/VerifyEmail.dart';
-import '../login/WelcomeLogin.dart';
 import '../content/placeholder.dart';
 import '../navigation/PlaceholderPage.dart';
 import 'NavBarPage.dart';
@@ -20,7 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import 'LoginPage.dart';
+import 'NavLoginPage.dart';
 
 class MyNavigator {
   static final MyNavigator _instance = MyNavigator._internal();
@@ -72,7 +73,7 @@ class MyNavigator {
                     path: defaultPath,
                     pageBuilder: (context, GoRouterState state) {
                       return getPage(
-                        child: const AuthGate(),
+                        child: const LoginPage(),
                         state: state,
                       );
                     }),
@@ -80,7 +81,7 @@ class MyNavigator {
                     path: loginPath,
                     pageBuilder: (context, GoRouterState state) {
                       return getPage(
-                        child: const AuthGate(),
+                        child: const LoginPage(),
                         state: state,
                       );
                     }),
@@ -152,11 +153,9 @@ class MyNavigator {
         ) {
           _navigationShell = navigationShell;
           return getPage(
-            child: NavBarPage(child: navigationShell)
-            // (shell.currentIndex == 0)
-            //     ? NavigationLoginPage(child: navigationShell)
-            //     : SuperAdminPage(child: navigationShell)
-            ,
+            child: (shell.currentIndex == 0)
+                ? NavigationLoginPage(child: navigationShell)
+                : NavBarPage(child: navigationShell),
             state: state,
           );
         },
@@ -188,10 +187,17 @@ class MyNavigator {
     log('verified $verified');
     if (loggedIn) {
       if (!verified) {
+        log('part 1');
+        MyNavigator.router.go(MyNavigator.verifyEmailPath);
       } else {
+        log('part 2');
         MyNavigator.shell.goBranch(1);
         MyNavigator.router.go(MyNavigator.AIViewPath);
+        log('part 3');
       }
+    } else {
+      MyNavigator.shell.goBranch(0);
+      MyNavigator.router.go(MyNavigator.loginPath);
     }
   }
 }
