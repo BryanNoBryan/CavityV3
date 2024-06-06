@@ -1,6 +1,17 @@
 {
   "rules": {
-    ".read": "now < 1717992000000",  // 2024-6-10
-    ".write": "now < 1717992000000",  // 2024-6-10
+    "records": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid"
+      }
+    },
+    
+    "users": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid"
+      }
+    }
   }
 }

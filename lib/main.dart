@@ -29,10 +29,8 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
-import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'app.dart';
@@ -48,30 +46,24 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseUIAuth.configureProviders([
-    EmailAuthProvider(),
-    GoogleProvider(
-        clientId:
-            '898422214960-l80mcbp1dn1f20h6sogjj7mdgshbe8cs.apps.googleusercontent.com'),
-  ]);
 
   MyNavigator();
 
-  if (kDebugMode) {
-    print('debug mode');
-    try {
-      FirebaseDatabase.instance.useDatabaseEmulator('localhost', 9000);
+  // if (kDebugMode) {
+  //   print('debug mode');
+  //   try {
+  //     FirebaseDatabase.instance.useDatabaseEmulator('localhost', 9000);
 
-      //NEVER FORGOT - THIS LINE WAS 8 HOURS OF DEBUGGING
-      FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
-      //
+  //     //NEVER FORGOT - THIS LINE WAS 8 HOURS OF DEBUGGING
+  //     FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
+  //     //
 
-      await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-  }
+  //     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  //   } catch (e) {
+  //     // ignore: avoid_print
+  //     print(e);
+  //   }
+  // }
 
   UserState();
   AppState();

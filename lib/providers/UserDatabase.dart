@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cavity3/providers/user_state.dart';
@@ -14,7 +15,9 @@ class UserDatabase {
   }
   UserDatabase._init();
 
-  MyUser? user;
+  MyUser user = MyUser(firstName: '', lastName: '', DOB: DateTime.now());
+
+  List<StreamSubscription<DatabaseEvent>> listeners = [];
 
   FirebaseDatabase database = FirebaseDatabase.instance;
 
@@ -35,7 +38,7 @@ class UserDatabase {
     } else {
       //no
     }
-    ref.onChildChanged.listen((event) {
+    final listener1 = ref.onChildChanged.listen((event) {
       print('CHANGED');
       String? s = event.snapshot.key;
       print(s);
@@ -49,12 +52,25 @@ class UserDatabase {
       user = myUser;
       print('new user' + user!.toJson().toString());
     });
+    listeners.add(listener1);
+  }
+
+  Future<void> cancelListeners() async {
+    for (final listener in listeners) {
+      await listener.cancel();
+    }
   }
 
   Future<void> updateUser(MyUser myUser) async {
+    user = myUser;
     String uid = UserState.user!.uid;
+    print(uid);
     DatabaseReference ref = database.ref('users/${uid}');
 
-    ref.set(myUser.toJson());
+    ref.set(myUser.toJson()).onError(
+      (error, stackTrace) {
+        print(error);
+      },
+    );
   }
 }

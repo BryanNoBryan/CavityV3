@@ -30,7 +30,11 @@ class UserState extends ChangeNotifier {
   bool _verified = false;
   bool get verified => _verified;
 
+  bool init = false;
+
   UserState._init() {
+    if (init == true) return;
+    init = true;
     //I need this information immediately
     _loggedIn = FirebaseAuth.instance.currentUser != null;
     _verified =
@@ -44,11 +48,10 @@ class UserState extends ChangeNotifier {
         if (user.emailVerified) {
           _verified = true;
           log('verified');
-          await Database().initRecords();
-          await UserDatabase().initUser();
           await MyNavigator.calculateNavigation();
         } else {
           _verified = false;
+          await MyNavigator.calculateNavigation();
         }
       } else {
         _loggedIn = false;
@@ -59,6 +62,10 @@ class UserState extends ChangeNotifier {
 
   Future<void> logout() async {
     log('logged out');
+    Database().cancelListeners();
+    UserDatabase().cancelListeners();
+    init = false;
+    Database().init = false;
     await FirebaseAuth.instance.signOut();
     _verified = false;
     _user = null;

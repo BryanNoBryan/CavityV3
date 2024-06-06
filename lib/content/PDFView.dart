@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cavity3/MyColors.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
@@ -41,7 +44,45 @@ class _PDFViewState extends State<PDFView> {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () {
+        onPressed: () async {
+          print('trying to save txt');
+
+          print('yes');
+          try {
+            Directory? directory;
+            if (Platform.isIOS) {
+              directory = await getApplicationDocumentsDirectory();
+            } else {
+              directory = Directory('/storage/emulated/0/Download');
+              // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
+              // ignore: avoid_slow_async_io
+              if (!await directory.exists())
+                directory = await getExternalStorageDirectory();
+            }
+
+            // Get the directory to save the file
+            final path = directory!.path;
+            final file = File('$path/cavity.txt');
+
+            // Write the file
+            await file.writeAsString('''
+${pdfrecord.user.firstName} ${pdfrecord.user.lastName}
+${pdfrecord.user.DOB != null ? DateFormat.yMd().format(pdfrecord.user.DOB!) : 'DOB N/A'}
+''' +
+                pdfrecord.records.fold(
+                  '',
+                  (p, e) =>
+                      p +
+                      e.disease +
+                      ' ' +
+                      e.timestamp.toIso8601String() +
+                      '\n',
+                ));
+            print('File saved at $path/cavity.txt');
+          } catch (e) {
+            print('Error saving file: $e');
+          }
+
           // print('press1');
           // Navigator.of(context).push(
           //   MaterialPageRoute(
@@ -65,13 +106,13 @@ class _PDFViewState extends State<PDFView> {
                   Expanded(
                     child: Text(
                       'Patient',
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '${pdfrecord.user.firstName} ${pdfrecord.user.lastName}',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineLarge,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -86,7 +127,7 @@ class _PDFViewState extends State<PDFView> {
                 children: [
                   Text(
                     'Records',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   ...pdfrecord.records.map(
                     (e) => ListTile(
@@ -99,7 +140,7 @@ class _PDFViewState extends State<PDFView> {
                     ),
                   ),
                   DefaultTextStyle.merge(
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headlineLarge,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [

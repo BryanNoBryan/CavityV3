@@ -7,7 +7,6 @@ import '../providers/UserDatabase.dart';
 import '../providers/database.dart';
 import '../providers/model_classes/MyUser.dart';
 import '../providers/user_state.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/InputHelper.dart';
@@ -128,6 +127,9 @@ class _ProfileState extends State<Profile> {
                           'Update Profile',
                           style: TextStyle(fontSize: 32),
                         )),
+                    SizedBox(
+                      height: 20,
+                    ),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,

@@ -13,10 +13,10 @@ import '../content/Profile.dart';
 import '../login/VerifyEmail.dart';
 import '../content/placeholder.dart';
 import '../navigation/PlaceholderPage.dart';
+import '../providers/database.dart';
 import 'NavBarPage.dart';
 import '../providers/UserDatabase.dart';
 import '../providers/user_state.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -82,18 +82,6 @@ class MyNavigator {
                     pageBuilder: (context, GoRouterState state) {
                       return getPage(
                         child: const LoginPage(),
-                        state: state,
-                      );
-                    }),
-                GoRoute(
-                    path: forgotPasswordPath,
-                    pageBuilder: (context, GoRouterState state) {
-                      final arguments = state.uri.queryParameters;
-                      return getPage(
-                        child: ForgotPasswordScreen(
-                          email: arguments['email'],
-                          headerMaxExtent: 200,
-                        ),
                         state: state,
                       );
                     }),
@@ -180,6 +168,8 @@ class MyNavigator {
 
   static Future<void> calculateNavigation() async {
     log('nav calculation');
+    await Database().initRecords();
+    await UserDatabase().initUser();
     UserState state = UserState();
     bool loggedIn = state.loggedIn;
     bool verified = state.verified;

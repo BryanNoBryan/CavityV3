@@ -28,6 +28,7 @@
 
 import 'dart:io';
 
+import 'package:cavity3/navigation/MyNavigator.dart';
 import 'package:cavity3/providers/database.dart';
 import 'package:cavity3/providers/model_classes/MyRecord.dart';
 
@@ -36,6 +37,7 @@ import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import '../classifier/classifier.dart';
+import '../providers/UserDatabase.dart';
 import '../styles.dart';
 import '../classifier/photo_view.dart';
 import '../widget/ImageDialog.dart';
@@ -72,6 +74,7 @@ class _AIViewState extends State<AIView> {
   void initState() {
     super.initState();
     _loadClassifier();
+    MyNavigator.calculateNavigation();
   }
 
   Future<void> _loadClassifier() async {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -13,11 +14,16 @@ class Database {
     return _state;
   }
   Database._init();
+  bool init = false;
 
   FirebaseDatabase database = FirebaseDatabase.instance;
   List<MyRecord>? records;
 
+  List<StreamSubscription<DatabaseEvent>> listeners = [];
+
   Future<void> initRecords() async {
+    if (init == true) return;
+    init = true;
     log('called init records');
     records = [];
     String uid = UserState.user!.uid;
@@ -44,7 +50,7 @@ class Database {
     // }
 
     //listen to changes
-    ref.onChildAdded.listen((event) {
+    final listener1 = ref.onChildAdded.listen((event) {
       log('on child database added');
       String? key = event.snapshot.key;
       final data = Map<String, dynamic>.from(event.snapshot.value as Map);
@@ -61,7 +67,7 @@ class Database {
       records!.insert(0, record);
     });
 
-    ref.onChildRemoved.listen((event) {
+    final listener2 = ref.onChildRemoved.listen((event) {
       String? key = event.snapshot.key;
       for (int i = 0; i < records!.length; i++) {
         if (records![i].key! == key) {
@@ -70,6 +76,15 @@ class Database {
         }
       }
     });
+
+    listeners.add(listener1);
+    listeners.add(listener2);
+  }
+
+  Future<void> cancelListeners() async {
+    for (final listener in listeners) {
+      await listener.cancel();
+    }
   }
 
   //no need to implement for now

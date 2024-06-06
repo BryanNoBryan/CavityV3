@@ -61,7 +61,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         theme: ThemeData(
-            fontFamily: 'OpenSans',
             primarySwatch: Colors.blue,
             colorScheme: const ColorScheme(
               brightness: Brightness.light,

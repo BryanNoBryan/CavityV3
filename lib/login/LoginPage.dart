@@ -1,11 +1,8 @@
 import 'dart:developer';
 
-import 'package:cavity3/navigation/MyNavigator.dart';
 import 'package:cavity3/widget/InputHelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,49 +21,79 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(children: [
-          Spacer(),
-          Text(
-            'Login',
-            style: TextStyle(fontSize: 32),
+          Center(child: Image.asset('assets/images/cavity.jpg')),
+          Center(
+            child: Text(
+              'Cavity',
+              style: TextStyle(fontSize: 40),
+            ),
           ),
-          Spacer(),
-          InputHelper(name: 'Email', controller: email),
-          InputHelper(name: 'Password', controller: password),
-          Spacer(),
-          Text(
-            errorMessage.text,
-            style: TextStyle(fontSize: 18, color: Colors.red),
+          Center(child: InputHelper(name: 'Email', controller: email)),
+          Center(child: InputHelper(name: 'Password', controller: password)),
+          Center(
+            child: Text(
+              errorMessage.text,
+              style: TextStyle(fontSize: 18, color: Colors.red),
+            ),
           ),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-              ),
-              onPressed: logIn,
-              child: Text(
-                'Login',
-                style: TextStyle(fontSize: 32),
-              )),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-              ),
-              onPressed: signUp,
-              child: Text(
-                'Sign Up',
-                style: TextStyle(fontSize: 32),
-              )),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-              ),
-              onPressed: signInWithGoogle,
-              child: Text(
-                'Google Login',
-                style: TextStyle(fontSize: 32),
-              )),
-          Spacer(),
+          Center(
+            child: SizedBox(
+              width: 300,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: logIn,
+                  child: Text(
+                    'Login',
+                    style: TextStyle(fontSize: 32),
+                  )),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: SizedBox(
+              width: 300,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: signUp,
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(fontSize: 32),
+                  )),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: SizedBox(
+              width: 300,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: signInWithGoogle,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/google.jpg',
+                        scale: 10,
+                      ),
+                      Text(
+                        ' Google Login ',
+                        style: TextStyle(fontSize: 32),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
         ]),
       ),
     );
@@ -90,6 +117,9 @@ class _LoginPageState extends State<LoginPage> {
     }
     //success!
     log(credential.user!.email!);
+    email.text = '';
+    password.text = '';
+    errorMessage.text = '';
     //navigation handled by navigation/MyNavigator.dart
   }
 
@@ -116,6 +146,9 @@ class _LoginPageState extends State<LoginPage> {
 
     //success!
     log(credential.user!.email!);
+    email.text = '';
+    password.text = '';
+    errorMessage.text = '';
     //navigation handled by navigation/MyNavigator.dart
   }
 
@@ -138,6 +171,9 @@ class _LoginPageState extends State<LoginPage> {
 
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential);
+    email.text = '';
+    password.text = '';
+    errorMessage.text = '';
     //navigation handled by navigation/MyNavigator.dart
   }
 }
