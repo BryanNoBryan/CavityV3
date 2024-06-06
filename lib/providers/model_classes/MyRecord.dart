@@ -9,11 +9,6 @@ part 'MyRecord.g.dart';
 //I'm doing my own
 @JsonSerializable(explicitToJson: true)
 class MyRecord {
-  // hey the time as a json key name not very working
-
-  // WAIT TIME NEEDS TO BE IN A INTEGER FOR FILTERING millissinceepoch
-  // $time
-
   @JsonKey(fromJson: _fromJson, toJson: _toJson)
   final DateTime timestamp;
   final String disease;
