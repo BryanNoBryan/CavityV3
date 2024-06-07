@@ -39,6 +39,7 @@ class UserDatabase {
       //no
     }
 
+    //JUST LEARNED
     //actually does one value at a time
     final listener1 = ref.onChildChanged.listen((event) {
       print('CHANGED');
