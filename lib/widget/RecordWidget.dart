@@ -27,22 +27,22 @@ class RecordWidget extends StatelessWidget {
       child: Container(
         height: 120,
         width: 360,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: MyColors.lightBlue,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.blueAccent)),
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               DateFormat.yMd().add_jm().format(time),
-              style: TextStyle(fontSize: 26),
+              style: const TextStyle(fontSize: 26),
             ),
             Text(
               disease,
-              style: TextStyle(fontSize: 26),
+              style: const TextStyle(fontSize: 26),
             )
           ],
         ),

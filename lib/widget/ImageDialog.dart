@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:cavity3/navigation/MyNavigator.dart';
 
-import '../providers/model_classes/MyRecord.dart';
-import '../providers/database.dart';
 import 'package:flutter/material.dart';
 
 import '../classifier/photo_view.dart';
@@ -29,26 +27,9 @@ class _ImageDialogState extends State<ImageDialog> {
   final primaryColor = const Color(0xff4338CA);
   final accentColor = const Color(0xffffffff);
 
-  final primaryColor2 = Color(0xff4338CA);
-  final secondaryColor2 = Color(0xff6D28D9);
-  final accentColor2 = Color(0xffffffff);
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    // name.text = !widget.isCreate ? widget.course!.timestamp ?? '' : '';
-    // desc.text = !widget.isCreate ? widget.course!.disease ?? '' : '';
-    // code.text = !widget.isCreate ? widget.course!.code ?? '' : '';
-    // subject.text = !widget.isCreate ? widget.course!.subject ?? '' : '';
-    // timeDesc.text = !widget.isCreate ? widget.course!.timeDesc ?? '' : '';
-    // level.text = !widget.isCreate ? widget.course!.level ?? '' : '';
-    // prereq.text = !widget.isCreate ? widget.course!.prereq ?? '' : '';
-    // tags.text = !widget.isCreate
-    //     ? widget.course!.tags?.reduce((v, e) => v = '$v,$e') ?? ''
-    //     : '';
-  }
+  final primaryColor2 = const Color(0xff4338CA);
+  final secondaryColor2 = const Color(0xff6D28D9);
+  final accentColor2 = const Color(0xffffffff);
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +50,11 @@ class _ImageDialogState extends State<ImageDialog> {
                   color: Colors.grey.withOpacity(.1)),
             ]),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Center(
+              const Center(
                 child: Text(
                   "Accept/Reject",
                   style: TextStyle(
@@ -89,7 +70,7 @@ class _ImageDialogState extends State<ImageDialog> {
               Center(
                 child: Text(
                   "Disease ${widget.disease} with accuracy ${double.parse(widget.accuracy.round().toStringAsFixed(4)) * 100}%",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
@@ -140,7 +121,6 @@ class Input extends StatelessWidget {
     const secondaryColor = Color(0xff6D28D9);
     const accentColor = Color(0xffffffff);
     const backgroundColor = Color(0xffffffff);
-    const errorColor = Color(0xffEF4444);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

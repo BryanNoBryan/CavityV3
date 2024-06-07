@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(children: [
           Center(child: Image.asset('assets/images/cavity.jpg')),
-          Center(
+          const Center(
             child: Text(
               'Cavity',
               style: TextStyle(fontSize: 40),
@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
           Center(
             child: Text(
               errorMessage.text,
-              style: TextStyle(fontSize: 18, color: Colors.red),
+              style: const TextStyle(fontSize: 18, color: Colors.red),
             ),
           ),
           Center(
@@ -46,13 +46,13 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: Colors.white,
                   ),
                   onPressed: logIn,
-                  child: Text(
+                  child: const Text(
                     'Login',
                     style: TextStyle(fontSize: 32),
                   )),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(
@@ -63,13 +63,13 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: Colors.white,
                   ),
                   onPressed: signUp,
-                  child: Text(
+                  child: const Text(
                     'Sign Up',
                     style: TextStyle(fontSize: 32),
                   )),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                         'assets/images/google.jpg',
                         scale: 10,
                       ),
-                      Text(
+                      const Text(
                         ' Google Login ',
                         style: TextStyle(fontSize: 32),
                       ),

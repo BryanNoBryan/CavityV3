@@ -19,14 +19,14 @@ class _IconTextButtonState extends State<IconTextButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       // padding: EdgeInsets.all(5),
       child: TextButton.icon(
         onPressed: widget.onPressed,
         icon: widget.icon,
         label: Text(
           widget.label,
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
         style: TextButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 201, 238, 255),

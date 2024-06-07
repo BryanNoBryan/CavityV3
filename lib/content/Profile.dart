@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import '../MyColors.dart';
 import '../navigation/MyNavigator.dart';
 import '../providers/UserDatabase.dart';
-import '../providers/database.dart';
 import '../providers/model_classes/MyUser.dart';
 import '../providers/user_state.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     MyUser? user = UserDatabase().getUser();
@@ -51,10 +49,10 @@ class _ProfileState extends State<Profile> {
               child: Center(
                 child: ListView(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
-                    Center(
+                    const Center(
                       child: Text(
                         'Information',
                         style: TextStyle(fontSize: 30),
@@ -74,7 +72,7 @@ class _ProfileState extends State<Profile> {
                         behavior: HitTestBehavior.deferToChild,
                         onTap: () {
                           BottomPicker.date(
-                            pickerTitle: Text(
+                            pickerTitle: const Text(
                               'Set your Birthday',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -86,7 +84,7 @@ class _ProfileState extends State<Profile> {
                             maxDateTime: DateTime.now(),
                             minDateTime: DateTime.now()
                                 .subtract(const Duration(days: 365 * 200)),
-                            pickerTextStyle: TextStyle(
+                            pickerTextStyle: const TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
@@ -99,8 +97,8 @@ class _ProfileState extends State<Profile> {
                           ).show(context);
                         },
                         child: Container(
-                          margin: EdgeInsets.all(10),
-                          padding: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 30),
                           decoration: BoxDecoration(
                               color: MyColors.lightBlue,
@@ -108,7 +106,7 @@ class _ProfileState extends State<Profile> {
                               border: Border.all(color: Colors.blueAccent)),
                           child: Text(
                             DOBText,
-                            style: TextStyle(fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           ),
                         )),
 
@@ -123,11 +121,11 @@ class _ProfileState extends State<Profile> {
                               DOB: DOB);
                           await UserDatabase().updateUser(myUser);
                         },
-                        child: Text(
+                        child: const Text(
                           'Update Profile',
                           style: TextStyle(fontSize: 32),
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     ElevatedButton(
@@ -137,9 +135,8 @@ class _ProfileState extends State<Profile> {
                         onPressed: () {
                           UserState().logout();
                           MyNavigator.shell.goBranch(0);
-                          print('outout');
                         },
-                        child: Text(
+                        child: const Text(
                           'Logout',
                           style: TextStyle(fontSize: 32),
                         )),

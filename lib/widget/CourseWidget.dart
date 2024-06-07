@@ -30,7 +30,7 @@ class _CourseWidgetState extends State<CourseWidget> {
             color: MyColors.lightBlue,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.blueAccent)),
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class _CourseWidgetState extends State<CourseWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Text(
                         // widget.course.timestamp!,
                         '',
@@ -54,7 +54,7 @@ class _CourseWidgetState extends State<CourseWidget> {
                           visible: widget.admin,
                           child: IconButton(
                               onPressed: widget.onEdit,
-                              icon: Icon(Icons.edit),
+                              icon: const Icon(Icons.edit),
                               highlightColor: Colors.lightBlue,
                               hoverColor: Colors.lightBlue),
                         ),
@@ -62,7 +62,7 @@ class _CourseWidgetState extends State<CourseWidget> {
                           visible: widget.hasAccount,
                           child: IconButton(
                               onPressed: widget.onFavorite,
-                              icon: Icon(Icons.favorite),
+                              icon: const Icon(Icons.favorite),
                               highlightColor: Colors.lightBlue,
                               hoverColor: Colors.lightBlue),
                         ),

@@ -1,18 +1,9 @@
-import 'dart:developer';
-
 import '../providers/model_classes/MyRecord.dart';
 import '../widget/RecordWidget.dart';
 
 import '../MyColors.dart';
-import '../navigation/MyNavigator.dart';
-import '../providers/UserDatabase.dart';
 import '../providers/database.dart';
-import '../providers/user_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_functions/cloud_functions.dart';
-import 'package:provider/provider.dart';
 
 class CRUDView extends StatefulWidget {
   const CRUDView({super.key});
@@ -26,7 +17,6 @@ class _CRUDViewState extends State<CRUDView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // courses = Database().getCourses();
     // print(courses);

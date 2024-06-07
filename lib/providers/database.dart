@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
 
@@ -27,7 +25,7 @@ class Database {
     log('called init records');
     records = [];
     String uid = UserState.user!.uid;
-    DatabaseReference ref = database.ref('records/${uid}');
+    DatabaseReference ref = database.ref('records/$uid');
 
     //NOTE: APPARENTLY IF YOU HAVE ref.onChildAdded.listen, it both listens to changes AND
     //adds in what is already there, oh well I'll keep this here for now
@@ -42,7 +40,6 @@ class Database {
     //     MyRecord record = MyRecord.fromJson(dataForThisRecord);
     //     record.key = elem;
 
-    //     //TODO DO SORTING TO ADD IN, might not need alr sorted
     //     records!.add(record);
     //   });
     // } else {
@@ -93,22 +90,18 @@ class Database {
   Future<void> deleteRecord(MyRecord record) async {
     String uid = UserState.user!.uid;
     String path = record.key!;
-    DatabaseReference ref = database.ref('records/${uid}/${path}');
+    DatabaseReference ref = database.ref('records/$uid/$path');
     ref.remove();
-    print('DELETED record');
   }
 
   Future<String?> addRecord(MyRecord record) async {
     log('add record');
-    print('trying to add record');
     String uid = UserState.user!.uid;
-    DatabaseReference ref = database.ref('records/${uid}');
+    DatabaseReference ref = database.ref('records/$uid');
     DatabaseReference push = ref.push();
     String? key = push.key;
 
     push.set(record.toJson());
-    print(record.toJson().toString());
-    print('added record key = ${key}');
 
     //ref to be able to delete
     return key;
