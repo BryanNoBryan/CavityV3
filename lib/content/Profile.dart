@@ -116,12 +116,12 @@ class _ProfileState extends State<Profile> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           MyUser myUser = MyUser(
                               firstName: firstName.text,
                               lastName: lastName.text,
                               DOB: DOB);
-                          UserDatabase().updateUser(myUser);
+                          await UserDatabase().updateUser(myUser);
                         },
                         child: Text(
                           'Update Profile',

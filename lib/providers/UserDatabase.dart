@@ -38,19 +38,29 @@ class UserDatabase {
     } else {
       //no
     }
+
+    //actually does one value at a time
     final listener1 = ref.onChildChanged.listen((event) {
       print('CHANGED');
-      String? s = event.snapshot.key;
-      print(s);
-      event.snapshot.children.forEach((e) {
-        print('${e.key} + ${e.value}');
-      });
+      String field = event.snapshot.key!;
+      print(field);
+      Object value = event.snapshot.value!;
 
-      final data = Map<String, dynamic>.from(event.snapshot.value as Map);
-      final myUser = MyUser.fromJson(data);
-      print('old user' + user!.toJson().toString());
-      user = myUser;
-      print('new user' + user!.toJson().toString());
+      print(event.snapshot.value);
+      if (field == 'firstName') {
+        user = MyUser(
+            firstName: value as String, lastName: user.lastName, DOB: user.DOB);
+      } else if (field == 'lastName') {
+        user = MyUser(
+            firstName: user.firstName,
+            lastName: value as String,
+            DOB: user.DOB);
+      } else if (field == 'DOB') {
+        user = MyUser(
+            firstName: user.firstName,
+            lastName: user.lastName,
+            DOB: DateTime.parse(value as String));
+      }
     });
     listeners.add(listener1);
   }
@@ -67,10 +77,13 @@ class UserDatabase {
     print(uid);
     DatabaseReference ref = database.ref('users/${uid}');
 
-    ref.set(myUser.toJson()).onError(
-      (error, stackTrace) {
-        print(error);
-      },
-    );
+    log('update user middle');
+    log(myUser.toJson().toString());
+    try {
+      await ref.set(myUser.toJson());
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+    log('update user finish');
   }
 }
