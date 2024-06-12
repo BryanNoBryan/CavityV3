@@ -1,8 +1,6 @@
 import '../navigation/MyNavigator.dart';
 import '../providers/app_state.dart';
-import '../providers/user_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +15,7 @@ class _temptestState extends State<temptest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text('SUPER IDOL')),
+      appBar: AppBar(centerTitle: true, title: const Text('SUPER IDOL')),
       body: Column(
         children: [
           Consumer<AppState>(
@@ -34,18 +32,18 @@ class _temptestState extends State<temptest> {
               onPressed: () {
                 context.read<AppState>().increment(x: 1);
               },
-              child: Text("inc")),
+              child: const Text("inc")),
           ElevatedButton(
               onPressed: () {
                 context.read<AppState>().decrement(x: 1);
               },
-              child: Text("dec")),
+              child: const Text("dec")),
           ElevatedButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 MyNavigator.shell.goBranch(0);
               },
-              child: Text("logout")),
+              child: const Text("logout")),
         ],
       ),
     );

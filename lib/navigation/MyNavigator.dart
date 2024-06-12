@@ -7,19 +7,15 @@ import 'package:cavity3/login/LoginPage.dart';
 import '../content/AIView.dart';
 
 import '../content/CRUDView.dart';
-import '../content/AIView.dart';
 import '../content/PDFView.dart';
 import '../content/Profile.dart';
 import '../login/VerifyEmail.dart';
-import '../content/placeholder.dart';
-import '../navigation/PlaceholderPage.dart';
 import '../providers/database.dart';
 import 'NavBarPage.dart';
 import '../providers/UserDatabase.dart';
 import '../providers/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 import 'NavLoginPage.dart';
 

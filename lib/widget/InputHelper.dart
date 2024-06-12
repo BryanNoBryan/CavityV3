@@ -15,8 +15,8 @@ class InputHelper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: MyColors.lightBlue,
           borderRadius: BorderRadius.circular(20),
@@ -28,7 +28,7 @@ class InputHelper extends StatelessWidget {
         decoration: InputDecoration(
           label: Text(
             name,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           ),
         ),
       ),

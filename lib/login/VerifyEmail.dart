@@ -3,12 +3,10 @@
 import 'dart:async';
 import 'dart:developer';
 
-import '../content/placeholder.dart';
 import '../navigation/MyNavigator.dart';
 import '../providers/user_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 class VerifyEmail extends StatefulWidget {
@@ -69,7 +67,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     return Consumer<UserState>(
       builder: (context, value, child) {
-        log('verified: ' + value.verified.toString());
+        log('verified: ${value.verified}');
 
         WidgetsBinding.instance.addPostFrameCallback((_) {
           checkVerification();
@@ -95,7 +93,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   'Resend Email',
                   style: TextStyle(fontSize: 32),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ElevatedButton(
@@ -103,14 +101,14 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 await FirebaseAuth.instance.signOut();
                 MyNavigator.router.pushReplacement(MyNavigator.loginPath);
               },
-              child: Text('Cancel'),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
+              child: const Text('Cancel'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],

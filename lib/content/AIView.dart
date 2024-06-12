@@ -37,7 +37,6 @@ import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import '../classifier/classifier.dart';
-import '../providers/UserDatabase.dart';
 import '../styles.dart';
 import '../classifier/photo_view.dart';
 import '../widget/ImageDialog.dart';
@@ -94,18 +93,18 @@ class _AIViewState extends State<AIView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dental Detector"),
+        title: const Text("Dental Detector"),
         centerTitle: true,
         backgroundColor: MyColors.green,
       ),
-      body: Container(
+      body: SizedBox(
         // color: kBgColor,
         width: double.infinity,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             const Spacer(flex: 1),
-            Text(
+            const Text(
               'Diagnosis',
               style: TextStyle(fontSize: 30),
             ),
@@ -148,14 +147,6 @@ class _AIViewState extends State<AIView> {
     return const Text('Analyzing...', style: kAnalyzingTextStyle);
   }
 
-  Widget _buildTitle() {
-    return const Text(
-      'Dental Detector',
-      style: kTitleTextStyle,
-      textAlign: TextAlign.center,
-    );
-  }
-
   Widget _buildPickPhotoButton({
     required ImageSource source,
     required String title,
@@ -166,13 +157,13 @@ class _AIViewState extends State<AIView> {
       child: Container(
         width: 300,
         height: 50,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         color: MyColors.grey,
         child: Center(
             child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            type == 1 ? Icon(Icons.camera_alt) : Icon(Icons.image),
+            type == 1 ? const Icon(Icons.camera_alt) : const Icon(Icons.image),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

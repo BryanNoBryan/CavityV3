@@ -2,7 +2,6 @@
 import 'dart:core';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 part 'MyRecord.g.dart';
 

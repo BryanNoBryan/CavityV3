@@ -26,9 +26,8 @@ class UserDatabase {
   }
 
   Future<void> initUser() async {
-    print('trying to init user');
     String uid = UserState.user!.uid;
-    DatabaseReference ref = database.ref('users/${uid}');
+    DatabaseReference ref = database.ref('users/$uid');
 
     final snapshot = await ref.get();
     if (snapshot.exists) {
@@ -42,12 +41,9 @@ class UserDatabase {
     //JUST LEARNED
     //actually does one value at a time
     final listener1 = ref.onChildChanged.listen((event) {
-      print('CHANGED');
       String field = event.snapshot.key!;
-      print(field);
       Object value = event.snapshot.value!;
 
-      print(event.snapshot.value);
       if (field == 'firstName') {
         user = MyUser(
             firstName: value as String, lastName: user.lastName, DOB: user.DOB);
@@ -75,15 +71,14 @@ class UserDatabase {
   Future<void> updateUser(MyUser myUser) async {
     user = myUser;
     String uid = UserState.user!.uid;
-    print(uid);
-    DatabaseReference ref = database.ref('users/${uid}');
+    DatabaseReference ref = database.ref('users/$uid');
 
     log('update user middle');
     log(myUser.toJson().toString());
     try {
       await ref.set(myUser.toJson());
     } on Exception catch (e) {
-      print(e.toString());
+      log('bruh $e');
     }
     log('update user finish');
   }

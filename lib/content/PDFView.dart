@@ -4,18 +4,11 @@ import 'package:cavity3/MyColors.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'dart:typed_data';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'dart:io';
-import 'package:flutter/services.dart' show rootBundle;
 
-import '../navigation/MyNavigator.dart';
-import '../pdf/PDFPreviewPage.dart';
 import '../pdf/PDFRecord.dart';
 import '../providers/UserDatabase.dart';
 import '../providers/database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class PDFView extends StatefulWidget {
@@ -30,9 +23,8 @@ class _PDFViewState extends State<PDFView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     pdfrecord =
-        PDFRecord(records: Database().records!, user: UserDatabase().user!);
+        PDFRecord(records: Database().records!, user: UserDatabase().user);
     super.initState();
   }
 
@@ -40,14 +32,11 @@ class _PDFViewState extends State<PDFView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favorites'),
+        title: const Text('Favorites'),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.large(
         onPressed: () async {
-          print('trying to save txt');
-
-          print('yes');
           try {
             Directory? directory;
             if (Platform.isIOS) {
@@ -56,8 +45,9 @@ class _PDFViewState extends State<PDFView> {
               directory = Directory('/storage/emulated/0/Download');
               // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
               // ignore: avoid_slow_async_io
-              if (!await directory.exists())
+              if (!await directory.exists()) {
                 directory = await getExternalStorageDirectory();
+              }
             }
 
             // Get the directory to save the file
@@ -65,22 +55,15 @@ class _PDFViewState extends State<PDFView> {
             final file = File('$path/cavity.txt');
 
             // Write the file
-            await file.writeAsString('''
-${pdfrecord.user.firstName} ${pdfrecord.user.lastName}
+            await file.writeAsString(
+                '''${pdfrecord.user.firstName} ${pdfrecord.user.lastName}
 ${pdfrecord.user.DOB != null ? DateFormat.yMd().format(pdfrecord.user.DOB!) : 'DOB N/A'}
-''' +
-                pdfrecord.records.fold(
-                  '',
-                  (p, e) =>
-                      p +
-                      e.disease +
-                      ' ' +
-                      e.timestamp.toIso8601String() +
-                      '\n',
-                ));
-            print('File saved at $path/cavity.txt');
+${pdfrecord.records.fold(
+              '',
+              (p, e) => '$p${e.disease} ${e.timestamp.toIso8601String()}\n',
+            )}''');
           } catch (e) {
-            print('Error saving file: $e');
+            log('file writing failed');
           }
 
           // print('press1');
@@ -92,8 +75,8 @@ ${pdfrecord.user.DOB != null ? DateFormat.yMd().format(pdfrecord.user.DOB!) : 'D
           // // rootBundle.
           // print('press2');
         },
-        child: Icon(Icons.picture_as_pdf, size: 36),
         backgroundColor: MyColors.lightBlue,
+        child: const Icon(Icons.picture_as_pdf, size: 36),
       ),
       body: ListView(
         children: [
@@ -135,13 +118,13 @@ ${pdfrecord.user.DOB != null ? DateFormat.yMd().format(pdfrecord.user.DOB!) : 'D
                           Text(DateFormat.yMd().add_jm().format(e.timestamp)),
                       trailing: Text(
                         e.disease,
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ),
                   ),
                   DefaultTextStyle.merge(
                     style: Theme.of(context).textTheme.headlineLarge,
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text("PDF"),

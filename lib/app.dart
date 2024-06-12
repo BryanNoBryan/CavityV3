@@ -33,7 +33,6 @@ import 'package:provider/provider.dart';
 import 'navigation/MyNavigator.dart';
 import 'providers/app_state.dart';
 import 'providers/user_state.dart';
-import 'content/AIView.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
