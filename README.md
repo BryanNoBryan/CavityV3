@@ -1,5 +1,7 @@
 # cavity3
-
+1. AI Image detection of dental diseases using photo of your teeth
+2. Database integration and syncronization with firebase realtime database
+3. txt file generation of records + user data
 # Must do
 Directly edit the dependency tflite_flutter_helper
 Path android/build.gradle
