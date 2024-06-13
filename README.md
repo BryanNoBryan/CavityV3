@@ -5,7 +5,7 @@ Directly edit the dependency tflite_flutter_helper
 Path android/build.gradle
 Change (line 5) to ext.kotlin_version = '1.5.20'
 
-In VSCode, you can click on the "DEPENDENCIES" tab and scroll to the "direct dependency," navigate to tflite_flutter_helper/andriod/build.gradle and change to 
+In VSCode, you can click on the "DEPENDENCIES" tab and scroll to the "direct dependencies," navigate to tflite_flutter_helper/andriod/build.gradle and change to 
 buildscript {<br>
     ***<br>
     ext.kotlin_version = '1.5.20'<br>
