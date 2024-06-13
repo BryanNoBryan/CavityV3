@@ -81,6 +81,7 @@ Users
 - - DOB (Date of birth, ISO8601 format)
 
 # Database Synchronization:
+```
 Records:
 final listener1 = ref.onChildAdded.listen((event) {
       log('on child database added');
@@ -134,6 +135,7 @@ final listener1 = ref.onChildChanged.listen((event) {
       }
     });
     listeners.add(listener1);
+```
 
 # Firebase Rules:
 Access only allowed if you are the one who created the entries.
