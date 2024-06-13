@@ -14,17 +14,17 @@ buildscript {<br>
 
 
 # Table of Contents:
-Purpose
-Audience
-Features
-Usage
-AI
-Database Schema
-Database Synchronization
-Firebase Rules
-File System Explanation
-Model Classes
-Packages
+- Purpose
+- Audience
+- Features
+- Usage
+- AI
+- Database Schema
+- Database Synchronization
+- Firebase Rules
+- File System Explanation
+- Model Classes
+- Packages
 
 # Purpose: 
 A portable dentist. 
