@@ -69,16 +69,16 @@ Labels:
 There is a lack of “No disease” label as I couldn’t find that dataset.
 
 # Database Schema:
-Records
-- UID
-- - [GENERATED INDEX]
-- - - Timestamp (MillisSinceEpoch format)
-- - - Disease
-Users
-- UID
-- - FirstName
-- - LastName
-- - DOB (Date of birth, ISO8601 format)
+- Records
+- - UID
+- - - [GENERATED INDEX]
+- - - - Timestamp (MillisSinceEpoch format)
+- - - - Disease
+- Users
+- - UID
+- - - FirstName
+- - - LastName
+- - - DOB (Date of birth, ISO8601 format)
 
 # Database Synchronization:
 ```
