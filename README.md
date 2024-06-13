@@ -10,7 +10,7 @@ buildscript {
     ***
     ext.kotlin_version = '1.5.20'
     ***
-}
+} 
 
 
 # Table of Contents:
