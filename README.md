@@ -6,10 +6,10 @@ Path android/build.gradle
 Change (line 5) to ext.kotlin_version = '1.5.20'
 
 In VSCode, you can click on the "DEPENDENCIES" tab and scroll to the "direct dependency," navigate to tflite_flutter_helper/andriod/build.gradle and change to 
-buildscript {
-    ***
-    ext.kotlin_version = '1.5.20'
-    ***
+buildscript {<br>
+    ***<br>
+    ext.kotlin_version = '1.5.20'<br>
+    ***<br>
 } 
 
 
@@ -157,21 +157,21 @@ Access only allowed if you are the one who created the entries.
 
 # File System Explanation:
 flutter_tflite_helper misc. helper classes
-Content
-- The “body/pages” of each screen
-Login
-- Holds the “body/pages” of login screens
-Navigation
-- MyNavigator handles StatefulShellRouter.indexedStack and the calcNavigation() method, which is automatically called upon UserState changes.
-- Other pages are the “frame,” including the bottom navigation bar.
-PDF
-- The PDF generation if there weren’t dependency conflicts
-Providers
-- Handles automatic state changes
-- - Database()
-- - Singleton class holding List records and handles automatic synchronization
-UserDatabase()
-- Singleton class holding MyUser and handles automatic synchronization
-providers/model_classes:
-Widget
-- flutter utility widgets
+- Content
+- - The “body/pages” of each screen
+- Login
+- - Holds the “body/pages” of login screens
+- Navigation
+- - MyNavigator handles StatefulShellRouter.indexedStack and the calcNavigation() method, which is - automatically called upon UserState changes.
+- - Other pages are the “frame,” including the bottom navigation bar.
+- PDF
+- - The PDF generation if there weren’t dependency conflicts
+- Providers
+- - Handles automatic state changes
+- - - Database()
+- - - Singleton class holding List records and handles automatic synchronization
+- UserDatabase()
+- - Singleton class holding MyUser and handles automatic synchronization
+- providers/model_classes:
+- Widget
+- - flutter utility widgets
