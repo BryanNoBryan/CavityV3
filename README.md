@@ -137,6 +137,7 @@ final listener1 = ref.onChildChanged.listen((event) {
 
 # Firebase Rules:
 Access only allowed if you are the one who created the entries.
+<p>
 {
   "rules": {
     "records": {
@@ -154,6 +155,7 @@ Access only allowed if you are the one who created the entries.
     }
   }
 }
+</p>
 
 # File System Explanation:
 flutter_tflite_helper misc. helper classes
